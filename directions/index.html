@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Directions Widget</title>
+
+    <link rel="stylesheet" href="http://servicesbeta.esri.com/jsapi/arcgis/3.4/js/esri/css/esri.css">
+
+    <style>
+      html, body, #map {
+        height:100%;
+        width:100%;
+        margin:0;
+        padding:0;
+      }
+      body {
+        background-color:#FFF;
+        overflow:hidden;
+        font-family:"Trebuchet MS";
+      }
+      #dir{
+
+        width:95%;
+        margin-top:20px;
+        padding:20px;
+
+
+      }
+
+      .esriResultsContainer{
+        display:none;
+      }
+      .button{
+        background-color: rgba(50,50,50);
+        border-radius: 2px 2px 2px 2px;
+        box-shadow: 1px 1px 3px #333;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: normal;
+        line-height: 16px;
+        margin: 0 0 5px 10px;
+        outline: 0 none;
+        padding: 5px 15px;
+        text-decoration: none;
+        vertical-align: bottom;
+        white-space: nowrap;
+        z-index:102;
+      }
+      #content{
+        max-width: 60%;
+
+      }
+      .overlay{
+       display:inline-block;
+       position: fixed;
+       top:0px;
+       bottom:0px;
+       left:0px;
+       right:0px;
+       height:200px;
+       border-radius:4px;
+       border: solid 1px #fff;
+       background-color: rgba(120,120,120,0.9);
+       z-index:100;
+       /*margin:0px 1em 0px 1em;*/
+
+      }
+      #results_overlay{
+        height:110px;;
+        padding:4px;
+
+      }
+      #results{
+        color:#fff;
+        font-size:20px;
+        z-index:110;
+        height: 100%;
+        width: 100%;
+        margin:2px;
+        text-align: center;
+        padding-top:1em;
+
+
+      }
+      .routeText{
+        font-size:18px;
+        padding-right:1em;
+      }
+
+      .simpleDirections .esriStop .esriStopIcon{
+        background: none;
+        font-size:14px;
+        padding-right: 6px;
+      }
+
+
+
+      table{
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin:0;
+          padding: 0;
+          width:100%;
+      }
+
+      .esriRouteIconColumn{
+        border:none;
+      }
+
+
+      /*hide the title that appears in the popup content section
+      to avoid duplicate titles since the title bar isn't used for navigation*/
+      .esriViewPopup .hzLine {
+        display:none;
+      }
+      .esriViewPopup .header {
+        display:none;
+      }
+      .zoomTo{
+        display:none;
+      }
+      /*Modify the get directions button to have a color scheme that matches the app overlay*/
+      .simpleDirections .esriStopsGetDirections {
+        margin-right:50px;
+        background: #b5bdc8; /* Old browsers */
+        background: -moz-linear-gradient(top, #b5bdc8 0%, #828c95 36%, #28343b 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b5bdc8), color-stop(36%,#828c95), color-stop(100%,#28343b)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=0 ); /* IE6-9 */
+
+      }
+      .simpleDirections .esriStopsGetDirections:hover, .simpleDirections .esriStopsGetDirections:focus {
+        background: #bcbfc2; /* Old browsers */
+        background: -moz-linear-gradient(top, #bcbfc2 0%, #2f3335 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bcbfc2), color-stop(100%,#2f3335)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #bcbfc2 0%,#2f3335 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #bcbfc2 0%,#2f3335 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #bcbfc2 0%,#2f3335 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #bcbfc2 0%,#2f3335 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bcbfc2', endColorstr='#2f3335',GradientType=0 ); /* IE6-9 */
+      }
+
+      .toolbarIcon{
+        border:none;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: 0px 0px;
+        position: absolute;
+        bottom:10px;
+        width:32px;
+        height:32px;
+        z-index: 102;      }
+
+      #mapIcon{
+        background-image: url(images/map.png);
+        left:55px;
+
+
+      }
+      #locationIcon{
+        background-image: url(images/location.png);
+        left:10px;
+      }
+
+      .dot{
+        display:inline-block;
+        width:12px;
+        height:12px;
+        border-radius: 6px;
+        background-color: #8999A6;
+        margin-left:2px;
+      }
+      .selectedDot{
+        background-color: white;
+      }
+      .resultsIndicator{
+        position: absolute;
+        bottom:4px;
+        right:50%;
+        margin:5px;
+      }
+
+    </style>
+
+    <script>var dojoConfig = { async: true };</script>
+
+    <script src="http://servicesbeta.esri.com/jsapi/arcgis/3.4/"></script>
+
+    <script>
+
+      require(["dojo/parser","dojo/ready","dojo/on", "dojo/_base/array", "dojo/dom-class", "dojox/gesture/swipe" ,"dojo/dom", "dojo/dom-construct", "dojo/query", "dojo/number" ,"esri/map", "esri/domUtils", "esri/dijit/Directions","esri/tasks/locator","esri/graphic","esri/symbols/PictureMarkerSymbol","esri/geometry/Point", "esri/dijit/Popup", "esri/dijit/PopupTemplate", ],function(
+          parser,
+          ready,
+          on,
+          arrayUtils,
+          domClass,
+          swipe,
+          dom,
+          domConstruct,
+          query,
+          number,
+          Map,
+          domUtils,
+          Directions,
+          Locator,
+          Graphic,
+          PictureMarkerSymbol,
+          Point,
+          Popup,
+          PopupTemplate
+        ){
+        ready(function(){
+          window.index = 0;
+          window.total = 0;
+
+
+          window.locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+          //customize the default popup to remove highlight
+          var popup = new Popup({highlight:false}, domConstruct.create("div"));
+
+          window.map = new Map("map",{
+            basemap:"topo",
+            center: [-98.57, 39.82],
+            zoom: 3,
+            infoWindow: popup
+          });
+
+          window.map.on("Load", function(){
+            getLocation();
+            addLinksToPopup();
+          });
+
+          //create the directions widget
+          window.directionsWidget = new Directions({
+            map: window.map,
+            alphabet:["Start","End"],
+            routeTaskUrl: "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Network/USA/NAServer/Route",
+            routeParams: {
+              directionsLanguage: "en-US"
+            },
+            geocoderOptions:{
+              arcgisGeocoder:{
+                sourceCountry: "USA",
+                searchExtent: window.map.extent
+              }
+            },
+            showSegmentPopup:false,
+            canModifyStops: false
+
+        },"dir");
+
+        window.directionsWidget.on("DirectionsFinish", directionsComplete);
+
+        window.directionsWidget.startup();
+
+          on(dom.byId("close"), "click", function(){
+            hideDirections();
+          });
+          on(dom.byId("results_close"), "click", function(){
+            //close the results dialog, clear the route and open the directions dialog.
+            hideResults();
+          });
+
+
+          on(dom.byId("locationIcon"),"click",function(){
+            getLocation();
+          });
+
+          on(dom.byId("mapIcon"),"click",function(){
+            //display the directions overlay
+            displayDirections();
+          });
+
+
+          on(dom.byId("results"),swipe.end,function(e){
+            //Navigate through the directions items when users swipe the directions widget.
+            //This works with mouse or touch.
+              if(e.dx < 0){ //next
+                window.index+=1;
+                if(window.index > window.total-1){window.index = window.total -1};
+                drawResults(window.index);
+              }else{ //previous
+                window.index -=1;
+                if(window.index < 0){window.index = 0};
+                drawResults(window.index);
+              }
+
+                //updateDots(window.index);
+          });
+
+
+
+        });
+      function locationError(error){
+        //Geolocation not available so display the directions overlay.
+       hideResults();
+
+       displayDirections();
+       //domUtils.show(dom.byId("directions_overlay"));
+      }
+    function addLinksToPopup(){
+         //add directions links to popup's action pane.
+        var toHere = domConstruct.create("a",{
+          "class":"action",
+          "innerHTML": "Directions to Here",
+          "href": "javascript:void(0);"
+        }, query(".actionList",window.map.infoWindow.domNode)[0]);
+
+
+        var fromHere = domConstruct.create("a",{
+          "class":"action",
+          "innerHTML": "<br>Directions from Here",
+          "href": "javascript:void(0);"
+        }, query(".actionList",window.map.infoWindow.domNode)[0]);
+
+        on(fromHere,"click", function(){
+          createStop(map.infoWindow.getSelectedFeature(), 0);
+
+        });
+        on(toHere,"click", function(){
+          createStop(map.infoWindow.getSelectedFeature(), 1);
+        });
+
+      }
+      function directionsComplete(){
+        if(window.directionsWidget.directions && window.directionsWidget.directions.features.length > 0){
+          window.total = window.directionsWidget.directions.features.length;
+          //add the text for the first stop  and display the results overlay
+          hideDirections();
+          displayResults();
+
+          drawResults(window.index);
+          //add an indicator dot for each direction stop
+         /* var dotTemplate = "";
+          arrayUtils.forEach(window.directionsWidget.directions.features, function(f,index){
+            dotTemplate += "<span id='dot_" + index  + "'class='dot'></span>"
+          });
+          dom.byId("resultsIndicator").innerHTML = dotTemplate;
+          query(".dot").forEach(function(node){
+            on(node, "click", function(e){
+
+              var id = e.target.id.split("_")[1];
+              drawResults(id);
+              window.index = id;
+              updateDots(id);
+
+            });
+          });*/
+
+           //updateDots(window.index);
+
+           //hide the overlay if displayed
+           hideDirections();
+
+        }
+
+      }
+      function addLocation(position){
+        //clear any existing map graphics
+        if(window.map.graphics.length > 0){
+          window.map.graphics.clear();
+        }
+        //create a symbol and info template for the current location graphic.  TODO - reverse geocode so lat/lon isn't displayed?
+        var symbol = new PictureMarkerSymbol({"angle":0,"xoffset":2,"yoffset":8,"type":"esriPMS","url":"http://static.arcgis.com/images/Symbols/Basic/GreenStickpin.png","contentType":"image/png","width":24,"height":24});
+        var mapPoint =  new Point(position.coords);
+
+        var template = new esri.dijit.PopupTemplate({
+            title: "<b>Current Location</b>",
+            description: "{address} {city}, {region}"
+        });
+
+        //Reverse geocode to get the address
+        window.locator.locationToAddress(mapPoint,1000,function(result){
+
+         //display the current location on the map
+          var attr = {
+            "address": result.address.Address,
+            "city": result.address.City,
+            "region": result.address.Region
+          }
+          var graphic = new Graphic(mapPoint, symbol , attr, template);
+
+          window.map.centerAndZoom(mapPoint, 12);
+          window.map.graphics.add(graphic);
+          window.map.infoWindow.setFeatures([graphic]);
+          window.map.infoWindow.resize(220,100);
+          window.map.infoWindow.show(mapPoint);
+
+
+        });
+
+
+      }
+      function getLocation(){
+         //if geolocation is enabled let's use that as the start point
+          if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(addLocation, locationError);
+          }else{
+            //no geolocation so let's display the directions overlay
+            displayDirections();
+          }
+      }
+      function createStop(feature,index){
+
+          //add the current location to the directions widget as either the origin or destinaton
+          //depending on the specified index.
+          //var stop = feature.geometry.getLongitude() + "," + feature.geometry.getLatitude();
+          var stop = feature.attributes.address + " " + feature.attributes.city + ", " + feature.attributes.region;
+          window.directionsWidget.updateStop(stop, index);
+
+          //hide the popup
+          if(window.map.infoWindow.isShowing){
+            window.map.infoWindow.hide();
+          }
+
+          //after adding the stop display the directions widget.
+          domUtils.show(dom.byId("directions_overlay"));
+      }
+
+      function drawResults(routeSegment){
+
+        if(routeSegment >= 0 && routeSegment < window.directionsWidget.directions.features.length){
+         var f = window.directionsWidget.directions.features[routeSegment];
+         var feature = f.attributes;
+
+         var template = "<table>";
+
+          if(feature.maneuverType === "esriDMTDepart") { //origin
+          template += '<tr class="esriRouteOrigin"><td class="esriRouteIconColumn"><div class="esriRouteIcon">A</div></td><td><span class="routeText">' +  feature.text + '</span></td></tr>'
+
+          }else if (feature.maneuverType === "esriDMTStop"){ //destination
+            template += '<tr class="esriRouteDestination"><td class="esriRouteIconColumn"><div class="esriRouteIcon">A</div></td><td><span class="routeText">' +  feature.text + '</span></tr>'
+          }else{
+          template += '<tr class="' + feature.maneuverType  +'"><td class="esriRouteIconColumn"><div class="esriRouteIcon"></div></td><td>' + number.format(feature.length,{places:2}) + ' miles<br/><span class="routeText">' +  feature.text + '</span></td></tr>'
+          }
+          template +="</table>";
+
+          dom.byId("resultsText").innerHTML = template;
+
+          window.directionsWidget.zoomToSegment(routeSegment);
+          window.directionsWidget.highlightSegment(routeSegment);
+        }
+
+
+        }
+
+        function updateDots(index){
+          //remove selectedDot class from all dots then add to the current index
+
+           query(".selectedDot").removeClass("selectedDot");
+           var currentId = "dot_" + index;
+
+           domClass.add(dom.byId(currentId), "selectedDot");
+        }
+
+        function displayDirections(){
+          hideResults();
+          domUtils.show(dom.byId("directions_overlay"));
+
+        }
+        function hideResults(){
+          domUtils.hide(dom.byId("results_overlay"));
+          window.directionsWidget.clearDirections();
+          window.directionsWidget.reset();
+          window.map.graphics.clear();
+        }
+        function displayResults(){
+          domUtils.show(dom.byId("results_overlay"));
+        }
+        function hideDirections(){
+          //hide the  directions overlay dialog.
+           domUtils.hide(dom.byId("directions_overlay"));
+        }
+      });
+
+
+    </script>
+  </head>
+  <body>
+    <div id="directions_overlay" class="overlay" style="display:none;">
+          <div id="close" class="button" style="position:absolute;top:3px;right:4px;">X</div>
+          <div id="dir"></div>
+    </div>
+    <div id="results_overlay" class="overlay" style="display:none;">
+        <div id="results_close" class="button" style="position:absolute;top:3px;right:4px;">X</div>
+        <div id="results">
+          <div id="resultsText"></div>
+          <div id="resultsIndicator">
+
+          </div>
+        </div>
+    </div>
+    <div id="map">
+      <input id="locationIcon" type="button" value="" class="toolbarIcon"/>
+      <input id="mapIcon" type="button" value="" class="toolbarIcon"/>
+    </div>
+  </body>
+</html>

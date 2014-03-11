@@ -1,0 +1,89 @@
+html,body {
+	padding:0;
+	margin:0;
+	height:100%;
+	width:100%;
+	font-family:Arial,Helvetica,sans-serif;
+}
+#locator{
+	position: absolute;
+	z-index: 99;
+	top:50px;
+	left:5px;
+}
+#mapDiv {
+	padding:0;
+	margin:0;
+	width:100%;
+	height:100%;
+}
+#status{
+	font-style:italic;
+	font-size:1em;
+	color: #a9a9a9;
+	font-weight: 500; 
+}
+.top-bar{
+	background: #fdfdfd; background: -moz-linear-gradient(top, #fdfdfd 0%, #bebebe 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(100%,#bebebe)); background: -webkit-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: -o-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: -ms-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: linear-gradient(to bottom, #fdfdfd 0%,#bebebe 100%);
+}
+.esriRTL label {
+/*Example of a rule that will be applied if the app is viewed in a browser wtih a RTL locale like Hebrew or Arabic.*/
+}
+
+.legend-content{
+    padding:20px;
+    width:240px;
+}
+.report{
+	padding:1em;
+}
+
+#title{
+	padding-top:4px;
+	font-size:1.5em;
+}
+.reportFields{
+	margin:.5em 0;
+	padding: 1em .5em;
+	width:95%;
+	border-radius:4px;
+}
+#report_button{
+	 -webkit-appearance: none; -moz-appearance: none;
+	 display: block;
+	 margin: 1.5em 0;
+	 font-size: 1em; line-height: 2.5em;
+	 color: #333;
+	 font-weight: bold;
+	 height: 2.5em; width: 95%;
+	 background: #fdfdfd; background: -moz-linear-gradient(top, #fdfdfd 0%, #bebebe 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(100%,#bebebe)); background: -webkit-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: -o-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: -ms-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: linear-gradient(to bottom, #fdfdfd 0%,#bebebe 100%);
+	 border: 1px solid #bbb;
+	 -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;
+}
+.file_upload{
+	 text-align: center;
+	 -webkit-appearance: none; -moz-appearance: none;
+	 display: block;
+	 margin: 1.5em 0;
+	 font-size: 1em; line-height: 2.5em;
+	 color: #333;
+	 font-weight: bold;
+	 height: 2.5em; width: 95%;
+	 background: #fdfdfd; background: -moz-linear-gradient(top, #fdfdfd 0%, #bebebe 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(100%,#bebebe)); background: -webkit-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: -o-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: -ms-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: linear-gradient(to bottom, #fdfdfd 0%,#bebebe 100%);
+	 border: 1px solid #bbb;
+	 -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;
+
+
+}
+.report input[type="file"]{
+	position: absolute;
+	visibility: hidden;
+	top:0;
+	left:0;
+}
+.esriPopup .titleButton.restore{
+	display:none;
+}
+.esriPopup .titleButton.maximize{
+	display:none;
+}
