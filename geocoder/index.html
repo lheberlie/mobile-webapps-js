@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!--
+    Apple-Specific Meta Tag Keys
+    https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW2
+    -->
+    <!-- Sets whether a web application runs in full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Sets the style of the status bar for a web application -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Changes the logical window size used when displaying a page on iOS -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1 user-scalable=no">
+    <title>Geocoder</title>
+    <!-- stylesheet for Map -->
+    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.9compact/js/esri/css/jsapi.css"/>
+    <!-- stylesheet for Geocoder -->
+    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.9compact/js/esri/dijit/css/Geocoder.css"/>
+    <!-- stylesheet for LocateButton -->
+    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.9compact/js/esri/dijit/css/LocateButton.css"/>
+    <style type="text/css">
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .esriSimpleSlider {
+            left: auto !important;
+            top: auto !important;
+            bottom: 3em !important;
+            right: 0.625em !important; /* 10 px */
+        }
+
+        .esriSimpleSlider div {
+            width: 56px !important;
+            height: 56px !important;
+            line-height: 55px !important;
+        }
+
+        .mobileBasemapGallery {
+            width: 58;
+            height: 58;
+            border: 1px solid #000000;
+            border-radius: 0.25em;
+        }
+
+        #mobileBasemapSwitcher {
+            position: absolute;
+            height: 58px;
+            width: 58px;
+            bottom: 11em;
+            right: 10px;
+        }
+
+        #mobileBasemapSwitcher div {
+            position: absolute;
+            z-index: 0;
+        }
+
+        #mobileBasemapSwitcher div.previous {
+            z-index: 1;
+        }
+
+        #mobileBasemapSwitcher div.current {
+            z-index: 2;
+        }
+
+        #search {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            top: 20px;
+            left: 5em;
+        }
+
+        .simpleGeocoder .esriGeocoder input {
+            outline: 0;
+            display: block;
+            border: 0;
+            border-collapse: collapse;
+            vertical-align: middle;
+            font-size: 12px;
+            line-height: 1.8em;
+            margin: 0;
+            padding: 6px 0;
+            float: left;
+            color: #444;
+            background: none;
+            margin: 0 6px;
+            width: 160px;
+        }
+
+        .simpleGeocoder .esriGeocoderIcon {
+            margin: 10px 6px 6px 6px;
+        }
+
+        #locate {
+            position: absolute;
+            z-index: 50;
+            bottom: 0.625em;
+            left: 0.625em !important; /* 10 px */
+        }
+
+        .LocateButton .zoomLocateButton {
+            width: 50px;
+            height: 50px;
+            background-color: #666;
+            background-color: rgba(255, 255, 255, 0.80);
+            border-radius: 5px;
+            border: 1px solid rgb(87, 88, 90);
+            background-image: url(./images/locate-button-icon50x50.png);
+        }
+
+        .LocateButton .zoomLocateButton:active {
+            background-color: #FFF;
+            background-color: rgba(255, 255, 255, 0.60);
+        }
+
+        .LocateButton .zoomLocateButton:hover {
+            background-color: #ccc;
+            background-color: rgba(255, 255, 255, 0.90);
+        }
+    </style>
+    <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="//js.arcgis.com/3.9compact/"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            var map, geocoder, locateButton;
+
+            require(["esri/map", "esri/dijit/Geocoder", "esri/dijit/LocateButton", "dojo/domReady!"], function (Map, Geocoder, LocateButton) {
+                map = new Map("map", {
+                    /* streets | satellite | hybrid | topo | gray | oceans | national-geographic | osm. */
+                    basemap: "satellite",
+                    center: [-116.538580, 33.824699],
+                    zoom: 17,
+                    sliderStyle: "small"
+                });
+                geocoder = new Geocoder({map: map}, "search");
+                geocoder.startup();
+
+                locateButton = new LocateButton({
+                    map: map
+                }, "locate");
+                locateButton.startup();
+
+            });
+
+            // create the image rotator
+            $("#mobileBasemapSwitcher").click(rotateImages);
+
+            function rotateImages() {
+                var currentBaseMap = $('#mobileBasemapSwitcher div.current');
+                var _basemapName = $("#mobileBasemapSwitcher div.current img").data("basemapname");
+                map.setBasemap(_basemapName);
+                console.log("basemap: ", _basemapName);
+                var nextBaseMap = currentBaseMap.next();
+                //console.log($("#div1").data("key1");
+                if (nextBaseMap.length == 0)
+                    nextBaseMap = $('#mobileBasemapSwitcher div:first');
+
+                currentBaseMap.removeClass('current').addClass('previous');
+                nextBaseMap.css({ opacity: 0.0 }).addClass('current').animate({ opacity: 1.0 }, 1000,
+                        function () {
+                            currentBaseMap.removeClass('previous');
+                        });
+            }
+        });
+
+    </script>
+
+</head>
+<body>
+<div id="map"></div>
+<div id="search"></div>
+<div id="locate"></div>
+<div id="mobileBasemapSwitcher">
+    <div>
+        <img src="http://placehold.it/58x58.jpg/ffffff/000000&text=Tp" data-basemapname="topo"
+             class="mobileBasemapGallery"/>
+    </div>
+    <div class="current">
+        <img src="http://placehold.it/58x58.jpg/ffffff/000000&text=St" data-basemapname="streets"
+             class="mobileBasemapGallery"/>
+    </div>
+    <div>
+        <img src="http://placehold.it/58x58.jpg/ffffff/000000&text=Hy" data-basemapname="hybrid"
+             class="mobileBasemapGallery"/>
+    </div>
+</div>
+</body>
+</html>
