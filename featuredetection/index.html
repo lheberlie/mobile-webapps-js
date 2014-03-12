@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<title>Feature Detection</title>
+<!--
+Apple-Specific Meta Tag Keys
+https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW2
+-->
+<!-- Sets whether a web application runs in full-screen mode -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<!-- Sets the style of the status bar for a web application -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Changes the logical window size used when displaying a page on iOS -->
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1 user-scalable=no">
+<!-- <link rel="stylesheet" href="themes/ds2014.min.css" />-->
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css"/>
+
+<link href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js" type="text/javascript"></script>
+<!--
+On mobile, we support iOS's mobile Safari, Android's WebKit browser, Opera Mobile,
+Firefox Mobile and whilst we’re still doing more testing we believe we support Blackberry 6+.
+-->
+<script src="js/libs/modernizr-latest.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).on('pageinit', function (e) {
+        console.log("jQuery Mobile", e.type);
+
+        var features = {items: [
+            {id: "mApplicationCache", data: "page-feature-details", label: "Application Cache", description: "Detect Application Cache support using Modernizr"},
+            {id: "mAudio", data: "page-feature-details", label: "Audio", description: "Detect Audio support using Modernizr"},
+            {id: "mCanvas", data: "page-feature-details", label: "Canvas", description: "Detect Canvas support using Modernizr"},
+            {id: "mCanvasText", data: "page-feature-details", label: "Canvas Text", description: "Detect Canvas Text support using Modernizr"},
+            {id: "mGeolocation", data: "page-feature-details", label: "Geolocation", description: "Detect Geolocation support using Modernizr"},
+            {id: "mHistory", data: "page-feature-details", label: "History", description: "Detect History support using Modernizr"},
+            {id: "mIndexedDB", data: "page-feature-details", label: "Indexed Database", description: "Detect Indexed Database support using Modernizr"},
+            {id: "mLocalStorage", data: "page-feature-details", label: "Local Storage", description: "Detect Local Storage support using Modernizr"},
+            {id: "mSessionStorage", data: "page-feature-details", label: "Session Storage", description: "Detect Session Storage support using Modernizr"},
+            {id: "mSVG", data: "page-feature-details", label: "SVG", description: "Detect SVG support using Modernizr"},
+            {id: "mTouch", data: "page-feature-details", label: "Touch", description: "Detect touch support using Modernizr"},
+            {id: "mVideo", data: "page-feature-details", label: "Video", description: "Detect Video support using Modernizr"},
+            {id: "mWebWorkers", data: "page-feature-details", label: "Web Workers", description: "Detect Web Worker support using Modernizr"},
+            {id: "mWebSockets", data: "page-feature-details", label: "Web Sockets", description: "Detect Web Sockets support using Modernizr"},
+            {id: "mWebSQLDatabase", data: "page-feature-details", label: "Web SQL Database", description: "Detect Web SQL Database support using Modernizr"}
+        ]};
+        var featuresArr = features.items;
+
+        var featureItemsArr = [];
+
+        var featureDetectionDict = {};
+
+        $.each(featuresArr, function (key, val) {
+            featureDetectionDict[val.id] = val;
+            var pageData = val;
+            var end = featuresArr.length - 1;
+            var htmlString = "";
+            switch (key) {
+                case 0:
+                    htmlString = "<li id='" + pageData.id + "' class='ui-first-child'><a href='#" + pageData.data + "' class='ui-btn ui-btn-icon-right ui-icon-carat-r'><h3>" + pageData.label + "</h3><p>" + pageData.description + "</p></a></li>";
+                    break;
+                case end:
+                    htmlString = "<li  id='" + pageData.id + "' class='ui-last-child'><a href='#" + pageData.data + "' class='ui-btn ui-btn-icon-right ui-icon-carat-r'><h3>" + pageData.label + "</h3><p>" + pageData.description + "</p></a></li>";
+                    break;
+                default:
+                    htmlString = "<li id='" + pageData.id + "' ><a href='#" + pageData.data + "' class='ui-btn ui-btn-icon-right ui-icon-carat-r'><h3>" + pageData.label + "</h3><p>" + pageData.description + "</p></a></li>";
+            }
+            featureItemsArr.push($(htmlString));
+        });
+        $("#featureDetectionListView").append(featureItemsArr);
+
+        $("#featureDetectionListView li").on("click", function (evt) {
+            var featureTest = evt.currentTarget.id;
+            console.log("clicked it", featureTest);
+            $("#page-feature-details h1").text(featureTest.label);
+
+            var selectedFeature = {};
+            if (featureDetectionDict.hasOwnProperty(featureTest)) {
+                selectedFeature = featureDetectionDict[featureTest];
+
+
+                var featureTestResult = "";
+
+                var isSupported = false;
+
+                switch (featureTest) {
+                    case "mApplicationCache":
+                        if (Modernizr.applicationcache) {
+                            console.log(featureTest, "is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mAudio":
+                        if (Modernizr.audio) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mCanvas":
+                        if (Modernizr.canvas) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mCanvasText":
+                        if (Modernizr.canvastext) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mGeolocation":
+                        if (Modernizr.geolocation) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mHistory":
+                        if (Modernizr.history) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mIndexedDB":
+                        if (Modernizr.indexeddb) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mLocalStorage":
+                        if (Modernizr.localstorage) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mSessionStorage":
+                        if (Modernizr.sessionstorage) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mSVG":
+                        if (Modernizr.svg) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mTouch":
+                        if (Modernizr.touch) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mVideo":
+                        if (Modernizr.video) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mWebWorkers":
+                        if (Modernizr.webworkers) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mWebSockets":
+                        if (Modernizr.websockets) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    case "mWebSQLDatabase":
+                        if (Modernizr.websqldatabase) {
+                            console.log(featureTest, " is supported on this device");
+                            isSupported = true;
+                        }
+                        break;
+                    /*case "":
+                     if (Modernizr.) {
+                     console.log(featureTest, " is supported on this device");
+                     }
+                     break;*/
+                    default:
+                        console.log("Default condition");
+                }
+
+                //featureTestResult = selectedFeature.label = " is supported on this device";
+                var testResults = "";
+                if (isSupported) {
+                    testResults = "Modernizr was able to verify that " + selectedFeature.label + " IS supported on this device!";
+                } else {
+                    testResults = "Modernizr was able to verify that " + selectedFeature.label + " IS NOT supported on this device!";
+                }
+                $("#textarea-feature-details").text(testResults);
+            }
+        });
+    });
+
+</script>
+</head>
+<body>
+<div id="page-main" data-role="page">
+    <div data-role="header" data-position="fixed">
+        <h1>Feature Detection</h1>
+    </div>
+    <div data-role="content">
+        <ul id="featureDetectionListView" data-role="listview">
+            <!-- This content is auto generated -->
+        </ul>
+    </div>
+</div>
+<div id="page-feature-details" data-role="page">
+    <div data-role="header">
+        <h1>Feature Details</h1>
+        <a href="#" data-rel="back" data-icon="back" data-iconpos="notext">Back</a></div>
+    <div data-role="content">
+        <div data-role="fieldcontain">
+            <label id="featureDetailsLabel" for="textarea-feature-details">Feature test results:</label>
+            <textarea cols="40" rows="8" name="textarea" id="textarea-feature-details"></textarea>
+        </div>
+    </div>
+</div>
+</body>
+</html>
