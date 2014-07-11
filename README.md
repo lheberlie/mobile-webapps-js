@@ -8,6 +8,8 @@ Smartphones and tablets are now outselling PCs, so it's the perfect time to thin
 
 ## Resources
 
+[Various resources and links from presentations](Resources.md)
+
 [@lheberlie](http://twitter.com/lheberlie)
 
 ## Licensing
