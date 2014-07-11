@@ -81,32 +81,38 @@ Smartphones and tablets are now outselling PCs, so it's the perfect time to thin
 * [IcoMoon, Icon Fonts](http://icomoon.io)
 * [CSS Tricks, Icon Fonts are Awesome](http://css-tricks.com/examples/IconFont/)
 * File compressions and caching headers
-	* ```<IfModule mod_deflate.c>
-        AddOutputFilterByType DEFLATE text/plain
-        AddOutputFilterByType DEFLATE text/html
-        AddOutputFilterByType DEFLATE text/xml
-        AddOutputFilterByType DEFLATE text/css
-        AddOutputFilterByType DEFLATE application/xml
-        AddOutputFilterByType DEFLATE application/xhtml+xml
-        AddOutputFilterByType DEFLATE application/rss+xml
-        AddOutputFilterByType DEFLATE application/javascript
-        AddOutputFilterByType DEFLATE application/x-javascript
-        AddOutputFilterByType DEFLATE application/json
-        AddOutputFilterByType DEFLATE image/svg+xml
-    </IfModule>```
-	* ```<IfModule mod_expires.c>
+
+	```apache
+	<IfModule mod_deflate.c>
+        	AddOutputFilterByType DEFLATE text/plain
+        	AddOutputFilterByType DEFLATE text/html
+        	AddOutputFilterByType DEFLATE text/xml
+        	AddOutputFilterByType DEFLATE text/css
+        	AddOutputFilterByType DEFLATE application/xml
+        	AddOutputFilterByType DEFLATE application/xhtml+xml
+        	AddOutputFilterByType DEFLATE application/rss+xml
+        	AddOutputFilterByType DEFLATE application/javascript
+        	AddOutputFilterByType DEFLATE application/x-javascript
+        	AddOutputFilterByType DEFLATE application/json
+        	AddOutputFilterByType DEFLATE image/svg+xml
+    	</IfModule>
+	```
+	
+	```apache
+	<IfModule mod_expires.c>
 		ExpiresActive on
 		ExpiresByType text/html "access plus 5 minutes" 
 		ExpiresByType image/jpg "access plus 6 months" 
 		ExpiresByType image/jpeg "access plus 6 months" 
 		ExpiresByType image/gif "access plus 6 months" 
-		ExpiresByType image/png "access plus 6 months”
+		ExpiresByType image/png "access plus 6 months"
 		ExpiresByType text/css "access plus 6 months" 
 		ExpiresByType text/javascript "access plus 6 months" 
 		ExpiresByType application/javascript "access plus 6 months"
 		ExpiresByType application/x-javascript "access plus 6 months"
 		ExpiresByType application/x-icon "access plus 1 year" 
-		</IfModule>```
+	</IfModule>
+	```
 * [Android: Using the Emulator, Network Delay Emulation](http://developer.android.com/tools/devices/emulator.html#netdelay)
 
 ## Other resources
