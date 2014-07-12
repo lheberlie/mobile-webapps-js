@@ -1,0 +1,35 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+// icons is the folder name under the images directory
+@import "icons/*.png";
+
+// icons is the folder name under the images directory
+@include all-icons-sprites;
+
+body {
+    background-color: #cc9f46;
+}
+
+.outerDiv {
+    // grid or flex
+    display: grid;
+}
+
+
+
+$box-padding: 0px;
+// icons is the folder name under the images directory
+$height: icons-sprite-height(battery);
+$width: icons-sprite-width(battery);
+
+.icondiv {
+    margin-left:   5px;
+    margin-bottom: 5px;
+    height:        $height+ $box-padding;
+    width:           $width + $box-padding;
+}
+
+
