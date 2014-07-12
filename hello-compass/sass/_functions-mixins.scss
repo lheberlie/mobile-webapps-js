@@ -1,0 +1,57 @@
+// -----------------------------------------------------------
+// Custom Functions and Mixins
+// -----------------------------------------------------------
+@import "compass/css3";
+
+@function px2em($pixel: 1) {
+    @return $pixel * (1em / 16px);
+}
+
+@mixin left-right-top-bottom($left: 0, $right: 0, $top: 0, $bottom: 0) {
+    @if $left > 0 {
+        left: $left;
+    }
+    @if $right > 0 {
+        right: $right;
+    }
+    @if $top > 0 {
+        top: $top;
+    }
+    @if $bottom > 0 {
+        bottom: $bottom;
+    }
+}
+
+@mixin clearfix {
+    &:after {
+        content:    " ";
+        display:    block;
+        height:     0;
+        clear:      both;
+        overflow:   hidden;
+        visibility: hidden;
+    }
+}
+
+@mixin easy-gradient($bg, $alpha: false) {
+    @if ($alpha) {
+        $bg: rgba($bg, $alpha);
+    }
+    $top: lighten($bg, 5);
+    $bottom: darken($bg, 5);
+    @include background-image(linear-gradient($top, $bottom));
+}
+
+@mixin horizontal-list {
+    li {
+        float:        left;
+        margin-right: 10px;
+    }
+}
+
+@mixin horizontal-list($spacing: 10px) {
+    li {
+        float:        left;
+        margin-right: $spacing;
+    }
+}

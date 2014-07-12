@@ -1,0 +1,335 @@
+// -----------------------------------------------------------
+// http://www.slideshare.net/chriseppstein/authoring-stylesheets-with-compass-sass
+// http://sass-lang.com/documentation/file.SASS_REFERENCE.html
+// -----------------------------------------------------------
+// -------------
+// Won't appear in the generated CSS
+// -------------
+@import "compass/css3";
+//@import "compass/reset";
+@import "blueprint/buttons";
+@import "variables";
+@import "functions-mixins";
+@import "license";
+
+@import "compass/typography";
+@import "compass/layout";
+
+
+#logo {
+    background: inline-image("CSS3.png");
+    background-repeat: no-repeat;
+}
+
+/*! *************
+* Loud comments Will appear in compressed CSS
+* *************
+*/
+body {
+    font:  100% $font-stack;
+    color: $primary-color;
+}
+
+.#{$custom-prefix}-map {
+    padding: 0;
+    margin:  0;
+}
+
+/* *************
+ * Silent comments will not appear in compressed CSS
+ * *************
+ */
+.rounded-one-single-corner {
+    @include border-corner-radius(top, left, 5px);
+}
+
+.rounded-one-side {
+    @include border-radius(5px);
+}
+
+.rounded-two-sides {
+    @include border-radius(5px, 5px);
+}
+
+.shadowed {
+    // --------------
+    // Sass mixins
+    // --------------
+    @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.5));
+
+}
+
+.some-class {
+    color:            $foreground-color;
+    background-color: $background-color;
+}
+
+// nested rules
+
+#container {
+    background-color: $background-color;
+    .widget {
+        @include box-shadow(10px 5px 5px darken($background-color, 20%));
+        background-color: $foreground-color;
+    }
+    .bordered-widget {
+        $border-width: 2px;
+        background-color: $background-color;
+        // --------------------
+        // Selector inheritance
+        // --------------------
+        @extend .widget;
+        width:            90 - $border-width;
+    }
+}
+
+.clearfixed {
+    @include clearfix;
+}
+
+.ui-info {
+    height: 50px * $px-to-em;
+}
+
+.message {
+    border:  px2em(1px) solid #ccc;
+    padding: px2em(1px);
+    color:   #333;
+}
+
+.success {
+    @extend .message;
+    border-color: green;
+}
+
+.error {
+    @extend .message;
+    border-color: red;
+}
+
+.warning {
+    @extend .message;
+    border-color: yellow;
+}
+
+.container {
+    width: 100%;
+    h1, h2, h3 {
+        margin-bottom: 12px * $px-to-em
+    }
+}
+
+nav, aside {
+    a {
+        color: blue
+    }
+}
+
+// --------------
+// Nested properties
+// --------------
+.my-nested-property-class {
+    border: {
+        style: solid;
+        width: 1px * $px-to-em;
+        color: #CCC;
+    }
+}
+
+.my-second-nested-property-class {
+    border:    (1px * $px-to-em) solid #ccc {
+        left:  0;
+        right: 0;
+    }
+}
+
+article[role="main"] {
+    float: left;
+    width: 600px / 960px * 100%;
+    a {
+        color: blue;
+        &:hover {
+            color: red
+        }
+    }
+}
+
+// --------------
+// Child and sibling combinators
+// --------------
+
+article {
+    ~ article {
+        border-top: (1px * $px-to-em) dashed #cccccc
+    }
+    > section {
+        background: #EEEEEE
+    }
+    dl > {
+        dt {
+            color: #333
+        }
+        dd {
+            color: #555
+        }
+    }
+    nav + & {
+        margin-top: 0
+    }
+}
+
+aside[role="complimentary"] {
+    float: right;
+    width: 300px / 960px * 100%;
+}
+
+.myButtonColor {
+    @include button-colors(#FF0000, #00FF00, #000000, #0000FF);
+}
+
+.gray-gradient {
+    top: 20px;
+    left: 20px;
+    @include easy-gradient(#ccc);
+}
+
+.purple-gradient {
+    @include easy-gradient(#571bdd);
+}
+
+h2 {
+    &.artist {
+        color: red
+    }
+}
+
+aside {
+    &#featuredArtist {
+        color: blue
+    }
+}
+
+// listing 1.1
+
+ul.nav {
+    float: right;
+    li {
+        float: left;
+        a {
+            color: #111;
+        }
+        &.current {
+            font-weight: bold
+        }
+    }
+}
+
+//listing 1.5
+
+#header ul.nav {
+    @include horizontal-list;
+    float: right;
+}
+
+#footer ul.nav {
+    @include horizontal-list(20px);
+    margin-top: 1em;
+}
+
+#content aside {
+    color: red;
+    body.ie & {
+        color: red
+    }
+}
+
+// -------------------
+// selector inheritance
+// -------------------
+.error {
+    border:     1px #f00;
+    background: #fdd;
+}
+
+.error.intrusion {
+    font-size:   1.2em;
+    font-weight: bold;
+}
+
+.badError {
+    @extend .error;
+    border-width: 3px;
+}
+
+// -------------------
+// selector inheritance
+// with placeholder
+// inheritance
+// -------------------
+%button-reset {
+    margin:          0;
+    padding:         0.5em 1.2em;
+    text-decoration: none;
+    cursor:          pointer;
+}
+
+.save {
+    @extend %button-reset;
+    color:      #ffffff;
+    background: #0000ff;
+}
+
+.delete {
+    @extend %button-reset;
+    color:      #ffffff;
+    background: red;
+}
+
+.my-class {
+    width:  px2em(15px);
+    border: px2em(5px) solid #EEEEEE;
+}
+
+#paddingExample {
+    $padding: left right top bottom;
+    @for $i from 1 through 4 {
+        //@debug $i;
+        padding-#{nth($padding, $i)}: #{$i}px;
+    }
+}
+
+.leftRightTopBottom {
+    @include left-right-top-bottom(5px, 5px, 5px, 5px);
+}
+
+.leftRight {
+    @include left-right-top-bottom(5px, 6px);
+}
+
+
+// Compass version 0.12.6 has a dependency on sass 3.2.19
+// Sass version 3.2.19 does not support abstract data type Map
+//
+//.seasonsStyle {
+//    $seasonsMap: (spring: blue, summer: red, fall: orange, winter: white);
+//    @each $season in spring, summer, fall, winter {
+//        @debug $season;
+//        .#{$season}-icon {
+//            background-color: red;
+//        }
+//    }
+//}
+//
+//
+//@each $animal, $color, $cursor in (puma, black, default), (sea-slug, blue, pointer), (egret, white, move) {
+//    @debug $color;
+//    .#{$animal}-icon {
+//        background-image: url('/images/#{$animal}.png');
+//        border:           2px solid $color;
+//        cursor:           $cursor;
+//    }
+//}
+
+a.login {
+    @include stretch(5px, 5px, 5px, 5px);
+}

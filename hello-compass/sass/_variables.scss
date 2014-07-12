@@ -1,0 +1,17 @@
+// -----------------------------------------------------------
+//
+//
+// -----------------------------------------------------------
+
+
+
+$background-color: #446688;
+$foreground-color: lighten(complement($background-color), 20%);
+
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+$px-to-em: 1em / 16px;
+
+
+$custom-prefix: ui-hello-world;
