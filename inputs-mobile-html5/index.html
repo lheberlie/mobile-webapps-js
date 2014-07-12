@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <!--
+    Apple-Specific Meta Tag Keys
+    https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW2
+    -->
+    <!-- // Safari iOS apps only -->
+    <!-- Sets whether a web application runs in full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Sets the style of the status bar for a web application -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- // Chrome for Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>HTML 5 form inputs</title>
+    <style>
+        html, body {
+            width:  100%;
+            height: 100%;
+        }
+
+        label {
+            font-size:      1.5em;
+            color:          #57585A;
+            line-height:    1.0em;
+            vertical-align: middle;
+        }
+
+        input {
+            width: 80%;
+        }
+
+        input:invalid {
+            color: #ff0000;
+        }
+
+        form {
+            white-space: pre-wrap;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<form>
+    <label for="myColorID">Color picker</label>
+    <input id="myColorID" name="color" type="color">
+
+    <label for="dateInput">Date</label>
+    <input id="dateInput" name="date" type="date">
+
+    <label for="timeInput">Time</label>
+    <input id="timeInput" name="time" type="time">
+
+    <label for="monthInput">Month</label>
+    <input id="monthInput" name="month" type="month">
+
+    <label for="weekInput">Week</label>
+    <input id="weekInput" name="week" type="week">
+
+    <label for="emailInput">Email</label>
+    <input id="emailInput" name="email" type="email">
+
+    <label for="numberInput">Number</label>
+    <input id="numberInput" name="number" type="number" min="1" max="100" step="2">
+
+    <label for="telephoneInput">Telephone</label>
+    <input id="telephoneInput" name="telephone" type="tel">
+
+    <label for="rangeInput">Range</label>
+    <input id="rangeInput" name="range" type="range" min="4" max="10" step="2">
+
+</form>
+
+</body>
+</html>
