@@ -1,0 +1,18 @@
+// -----------------------------------------------------------
+//
+//
+// -----------------------------------------------------------
+
+
+
+$background-color: #FFFFFF;
+$foreground-color: lighten(complement($background-color), 20%);
+
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+
+$app-ui-prefix: ui-app;
+$custom-prefix: ui-hello-world;
+
+$application-index: 3;

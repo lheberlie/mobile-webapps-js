@@ -1,0 +1,36 @@
+{
+    "name": "application-boilerplate",
+    "version": "0.0.1",
+    "description": "An application boilerplate that will work for any web project.",
+    "author": "Lloyd Heberlie",
+    "license": "Apache 2.0",
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "devDependencies": {
+        "grunt": "^0.4.4",
+        "grunt-contrib-clean": "^0.5.0",
+        "grunt-contrib-compass": "^0.8.0",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-copy": "^0.5.0",
+        "grunt-contrib-cssmin": "^0.9.0",
+        "grunt-contrib-htmlmin": "^0.2.0",
+        "grunt-contrib-uglify": "~0.4.0",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-esrijso-modulelist": "git://github.com/lheberlie/grunt-esrijso-modulelist.git",
+        "grunt-manifest": "git://github.com/lheberlie/grunt-manifest.git",
+        "grunt-targethtml": "^0.2.6",
+        "load-grunt-tasks": "^0.4.0",
+        "time-grunt": "^0.3.1"
+    },
+    "keywords": [],
+    "//": [
+        "a",
+        "b",
+        "c"
+    ],
+    "esrijsVersion": "3.10",
+    "//": "\"webserverName\": \"10.61.3.88\",",
+    "webserverName": "192.168.1.88",
+    "networkArchiveDirectory": "network_archives"
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- http://www.html5rocks.com/en/tutorials/appcache/beginner/ -->
+<html manifest="manifest.appcache">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0:, user-scalable=no">
+    <!--
+    Apple-Specific Meta Tag Keys
+    https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW2
+    minimal-ui
+    -->
+    <!-- // Safari iOS apps only -->
+    <!-- Sets whether a web application runs in full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Sets the style of the status bar for a web application -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- // Chrome for Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>Citizen Request</title>
+
+    <!--
+      --  https://www.npmjs.org/package/grunt-targethtml
+    -->
+
+    <!--(if target source_to_build)><!-->
+    <link rel="stylesheet" href="//{{webserver_name}}/esrijs/js/dojo/dijit/themes/claro/claro.css"/>
+    <link rel="stylesheet" href="//{{webserver_name}}/esrijs/js/esri/css/esri.css"/>
+    <!--<!(endif)-->
+
+    <!--(if target source_to_dist)><!-->
+    <link rel="stylesheet" href="//js.arcgis.com/{{esrijs_version}}compact/js/dojo/dijit/themes/claro/claro.css"/>
+    <link rel="stylesheet" href="//js.arcgis.com/{{esrijs_version}}compact/js/esri/css/esri.css"/>
+    <!--<!(endif)-->
+
+    <!--(if target source_to_build)><!-->
+    <link rel="stylesheet" href="./styles/application-merge-styles.css">
+    <link rel="stylesheet" href="./styles/app.css">
+    <!--<!(endif)-->
+
+    <!--(if target source_to_dist)><!-->
+    <link rel="stylesheet" href="./styles/application-styles.min.css">
+    <!--<!(endif)-->
+
+
+</head>
+<body>
+<!--
+// ----------------------------------------------------
+// Main page
+// ----------------------------------------------------
+-->
+<div data-role="page" id="ui-map-page" data-theme="a">
+    <!-- content -->
+    <div id="ui-map-content" data-theme="a">
+        <div id="ui-map"></div>
+        <div id="ui-dijit-geocoder"></div>
+        <div id="ui-dijit-locatebutton"></div>
+        <a id="ui-settings-button" href="#ui-settings-panel" class="SettingsButton ui-btn"></a>
+        <a id="ui-feature-templates-button" href="#ui-features-panel" data-rel="popup"
+           class="ui-btn" data-transition="pop"></a>
+    </div>
+
+    <!-- psuedo feature template picker panel -->
+
+    <div data-role="popup" id="ui-features-panel" data-theme="a">
+        <ul id="ui-feature-list" data-role="listview" data-inset="true"></ul>
+    </div>
+    <!-- collector feedback -->
+    <div data-role="popup" id="ui-collection-prompt" data-theme="a" class="ui-content"
+         data-position-to="#ui-feature-templates-button">
+        <p>Click the map to report an incident.</p>
+    </div>
+    <!-- settings panel -->
+    <div data-role="panel" id="ui-settings-panel" data-theme="a" data-position="right" data-display="push"
+         data-position-fixed="true">
+        <ul data-role="listview">
+            <li data-role="list-divider">Map Options</li>
+            <li class="basemapOption "><a class="ui-btn ui-btn-icon-custom" data-basemapname="topo">Topographic</a></li>
+            <li class="basemapOption"><a class="ui-btn ui-btn-icon-custom" data-basemapname="streets">Streets</a></li>
+            <li class="basemapOption"><a class="ui-btn ui-btn-icon-custom" data-basemapname="hybrid">Satellite</a></li>
+            <li class="basemapOption"><a class="ui-btn ui-btn-icon-custom" data-basemapname="gray">Gray</a></li>
+            <li class="basemapOption"><a class="ui-btn ui-btn-icon-custom" data-basemapname="oceans">Oceans</a></li>
+            <li class="basemapOption"><a class="ui-btn ui-btn-icon-custom" data-basemapname="national-geographic">National
+                Geographic</a></li>
+            <!-- <li class="basemapOption"><a class="ui-btn ui-btn-icon-custom" data-basemapname="satellite">Satellite</a></li>
+             <li class="basemapOption"><a class="ui-btn ui-btn-icon-custom" data-basemapname="osm">Open StreetMap</a></li> -->
+            <li data-role="list-divider">Other</li>
+            <li data-icon="false"><a href="#ui-about-page" class="ui-btn" data-role="button">About</a></li>
+            <li data-icon="false"><a href="#ui-feedback-page" class="ui-btn" data-role="button">Feedback</a></li>
+            <li data-icon="false"><a href="#" id="ui-home-button" class="ui-btn">Reset map</a></li>
+        </ul>
+    </div>
+</div>
+<!-- psuedo attribute inspector dialog page-->
+<div data-role="page" id="ui-attributes-page" data-theme="a">
+    <!-- header -->
+    <div data-role="header" data-nobackbtn="true">
+        <h1>Collect</h1>
+    </div>
+
+    <div class="ui-content" data-inset="true">
+        <div>
+            <div id="currentAddress"></div>
+        </div>
+        <div id="ui-attributes-container"></div>
+        <a href="#ui-map-page" data-role="button">Finish</a>
+    </div>
+</div>
+
+
+<!-- about page -->
+<div data-role="page" id="ui-about-page" data-theme="a">
+    <!-- content -->
+    <div class="ui-content" data-theme="a">
+        <h2>About this application</h2>
+
+        <div class="ui-body">
+            The mobile citizen request sample was designed to showcase
+            a simple focused JavaScript mobile application where individuals
+            may easily report incidents in their community using just their
+            web browser.
+        </div>
+        <a href="#ui-map-page" data-role="button" class="ui-btn">Close</a>
+    </div>
+</div>
+
+<!-- Feedback page -->
+<div data-role="page" id="ui-feedback-page" data-theme="a">
+    <!-- content -->
+    <div class="ui-content" data-theme="a">
+        <h2>Send Feedback about this application</h2>
+
+        <div class="ui-body">
+            <!-- <form action="" method="post" data-transition="none" -->
+            <div class="ui-field-contain">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" value="" required/>
+            </div>
+
+            <div class="ui-field-contain">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" value="" required/>
+            </div>
+
+            <div class="ui-field-contain">
+                <label for="comments">Comments:</label>
+                <textarea cols="40" rows="8" name="comments" id="comments"></textarea>
+            </div>
+
+            <div class="ui-field-contain">
+                <label for="contacted">Can we contact you?</label>
+                <select name="contacted" id="contacted" data-role="slider">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <a href="#ui-map-page" data-role="button" class="ui-btn">Close</a>
+            <!-- <input type="submit" value="Send" data-theme="a" -->
+            <!-- </form> -->
+        </div>
+    </div>
+</div>
+
+
+<!--(if target source_to_build)><!-->
+<script src="./js/application-merge-library.js"></script>
+<script src="./js/app.js"></script>
+<!--<!(endif)-->
+
+<!--(if target source_to_dist)><!-->
+<script src="./js/application-library.min.js"></script>
+<!--<!(endif)-->
+
+<!--(if target source_to_build)><!-->
+<script src="//js.arcgis.com/{{esrijs_version}}compact/init.js"></script>
+<script src="//{{webserver_name}}/livereload.js"></script>
+<!--<!(endif)-->
+
+<!--(if target source_to_dist)><!-->
+<script src="//js.arcgis.com/{{esrijs_version}}compact/init.js"></script>
+<!--<!(endif)-->
+
+<script>
+    $(function () {
+        applicationInitialize();
+    });
+</script>
+</body>
+</html>
+
