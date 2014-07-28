@@ -64,6 +64,9 @@ Smartphones and tablets are now outselling PCs, so it's the perfect time to thin
 		* [Compass](http://compass-style.org)
 	* [Stylus](http://learnboost.github.io/stylus/)
 	* [Less](http://lesscss.org)
+	* [CSS Preprocessors
+Sass, Less and Stylus](http://patrickarlt.github.io/sass-less-stylus-slides/#/) - presented by [Patrick Arlt](https://twitter.com/patrickarlt)
+	* [Write Responsive, Cross-Browser CSS Faster with SASS and Compass](http://video.esri.com/iframe/3367/000000/width/960/0/000000) and [Slides](https://s3.amazonaws.com/webapps.esri.com/esri-proceedings/devsummit14/papers/dev-131.pdf) - presented by [Patrick Arlt](https://twitter.com/patrickarlt)
 * [ JSHint (Esri jsapi resources)](https://github.com/Esri/jsapi-resources)
 
 ## Debugging and Testing
