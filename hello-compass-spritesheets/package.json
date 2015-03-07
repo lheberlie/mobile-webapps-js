@@ -15,5 +15,5 @@
     "time-grunt": "^0.3.1"
   },
   "esrijsVersion": "3.10",
-  "webserverName": "192.168.1.88"
+  "webserverName": "heb.esri.com"
 }

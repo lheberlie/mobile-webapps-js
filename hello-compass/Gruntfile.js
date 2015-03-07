@@ -9,60 +9,65 @@
  * --------------------------------------------------------
  */
 
-(function () {
-    "use strict";
+(function (){
+  "use strict";
 }());
 
-module.exports = function (grunt) {
-    // show elapsed time at the end
-    require("time-grunt")(grunt);
-    // load all grunt tasks
-    require("load-grunt-tasks")(grunt);
+module.exports = function (grunt){
+  // show elapsed time at the end
+  require("time-grunt")(grunt);
+  // load all grunt tasks
+  require("load-grunt-tasks")(grunt);
 
-    grunt.initConfig({
-        pkg: grunt.file.readJSON("package.json"),
-        clean:
-        {
-          build: {
-              src: ["build"]
-          },
-          dist: {
-              src: ["dist"]
-          }
-        },
-        compass: {
-            clean: {
-                options: {
-                    clean: true
-                }
-            },
-            build: {
-                options: {
-                    sassDir: "sass",
-                    cssDir: "build/styles",
-                    environment: "development",
-                    outputStyle: "expanded",
-                    config: "config-build.rb"
-                }
-            },
-            dist: {
-                options: {
-                    sassDir: "sass",
-                    cssDir: "dist/styles",
-                    environment: "production",
-                    outputStyle: "compressed",
-                    config: "config-dist.rb"
-                }
-            }
-
-        },
-        watch: {
-            css: {
-                files: "**/*.scss",
-                tasks: ["compass"]
-            }
+  grunt.initConfig({
+    pkg: grunt.file.readJSON("package.json"),
+    clean: {
+      build: {
+        src: ["build"]
+      },
+      dist: {
+        src: ["dist"]
+      }
+    },
+    compass: {
+      clean: {
+        options: {
+          clean: true
         }
-    });
+      },
+      build: {
+        options: {
+          sassDir: "sass",
+          cssDir: "build/styles",
+          environment: "development",
+          outputStyle: "expanded",
+          config: "config-build.rb"
+        }
+      },
+      dist: {
+        options: {
+          sassDir: "sass",
+          cssDir: "dist/styles",
+          environment: "production",
+          outputStyle: "compressed",
+          config: "config-dist.rb"
+        }
+      }
 
-    grunt.registerTask("default", ["clean", "compass"]);
+    },
+    watch: {
+      livereload: {
+        options: {
+          livereload: true
+        },
+        files: ["dist/**/*"]
+      },
+      css: {
+        files: "**/*.scss",
+        tasks: ["compass"]
+      }
+    }
+  });
+
+  grunt.registerTask("default", ["clean", "compass"]);
 };

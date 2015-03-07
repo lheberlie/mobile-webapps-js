@@ -112,7 +112,7 @@ module.exports = function (grunt) {
                         }
                     },
                     files: {
-                        "dist/index-generated.html": "src/index.html"
+                        "dist/index.html": "src/index.html"
                     }
                 }
             },

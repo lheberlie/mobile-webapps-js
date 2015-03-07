@@ -1,6 +1,7 @@
 # mobile-webapps-js
 
-![image](repo.png)
+This repository contains resources from the presentations given by Matt Driscoll, Kelly Hutchins, and Lloyd Heberlie during annual [Esri Developer's Conferences](http://www.esri.com/events/devsummit) and [Esri International User's Conferences](http://www.esri.com/events/user-conference).
+
 
 ### Description
 Smartphones and tablets are now outselling PCs, so it's the perfect time to think about designing applications for mobile devices. Learn design techniques, best practices, and tips and tricks for building a mobile site that is optimized for usability and performance using ArcGIS API for JavaScript.
@@ -8,7 +9,7 @@ Smartphones and tablets are now outselling PCs, so it's the perfect time to thin
 
 ## Resources
 
-[Various resources and links from presentations](Resources.md)
+[Various resources and links from presentations](Resources.md) (Resources.md)
 
 [@lheberlie](http://twitter.com/lheberlie)
 
