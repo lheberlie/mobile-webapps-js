@@ -1,0 +1,60 @@
+{
+  "name": "responsive-bootstrap",
+  "version": "0.0.1",
+  "description": "A responsive mapping application based upon bootstrap and the ArcGIS API for JavaScript.",
+  "homepage": "https://github.com/lheberlie/mobile-webapps-js",
+  "main": "index.js",
+  "scripts": {
+    "acetate": "acetate server --open --input source --output build-artifacts -c acetate.conf.js",
+    "start": "grunt",
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lheberlie/mobile-webapps-js"
+  },
+  "keywords": [
+    "acetate",
+    "bootstrap",
+    "calcite",
+    "calcite-web",
+    "calcite-bootstrap",
+    "calcite-maps",
+    "dojo-bootstrap",
+    "esrijs",
+    "map",
+    "responsive"
+  ],
+  "author": "Lloyd Heberlie",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/lheberlie/mobile-webapps-js/issues"
+  },
+  "dependencies": {
+    "acetate": "^0.4.7",
+    "bootstrap": "^3.3.5",
+    "bootstrap-map-js": "https://github.com/lheberlie/bootstrap-map-js/archive/v0.0.3.tar.gz",
+    "bootstrap-sass": "https://github.com/twbs/bootstrap-sass/archive/v3.3.5.tar.gz",
+    "calcite-bootstrap": "https://github.com/lheberlie/calcite-bootstrap/archive/v0.2.10.tar.gz",
+    "calcite-maps": "https://github.com/lheberlie/calcite-maps/archive/v0.0.1.tar.gz",
+    "calcite-web": "https://github.com/Esri/calcite-web/archive/v1.0.0-beta.5.tar.gz",
+    "dojo-bootstrap": "https://github.com/xsokev/Dojo-Bootstrap/archive/v3.0.1.tar.gz",
+    "grunt": "^0.4.5",
+    "grunt-acetate": "^0.4.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-sass": "^1.0.0",
+    "jquery": "https://github.com/jquery/jquery/archive/1.11.3.tar.gz",
+    "load-grunt-tasks": "^3.4.0",
+    "node-sass": "^3.4.2",
+    "time-grunt": "^1.3.0"
+  },
+  "heb": {
+    "source_directory": "source",
+    "destination_directory": "build-artifacts"
+  }
+}
