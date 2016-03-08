@@ -16,8 +16,8 @@ function applicationInitialize() {
         collectMode: false,
         citizenRequestLayer: null,
         locator: null,
-        locatorURL: "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer",
-        citizenRequestLayerURL: "http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0",
+        locatorURL: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer",
+        citizenRequestLayerURL: "https://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0",
         center: [-88.147286296, 41.785857478]
     };
 
@@ -168,7 +168,8 @@ function applicationInitialize() {
                 }, "ui-dijit-geocoder");
 
                 var geoLocate = new LocateButton({
-                    map: appGlobals.map
+                    map: appGlobals.map,
+                    useTracking: false
                 }, "ui-dijit-locatebutton");
 
                 var homeButton = new HomeButton({

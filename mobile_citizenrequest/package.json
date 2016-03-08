@@ -29,8 +29,8 @@
         "b",
         "c"
     ],
-    "esrijsVersion": "3.10",
+    "esrijsVersion": "3.16",
     "//": "\"webserverName\": \"10.61.3.88\",",
-    "webserverName": "192.168.1.88",
+    "webserverName": "localhost",
     "networkArchiveDirectory": "network_archives"
 }

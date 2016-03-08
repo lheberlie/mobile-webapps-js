@@ -134,12 +134,12 @@ module.exports = function (grunt) {
                              * https://github.com/jobrapido/jquery-mobile-bower
                              */
                             "bower_components/jquery/jquery.js",
-                            "bower_components/jquery-mobile-bower/js/jquery.mobile-1.4.2.js"
+                            "bower_components/jquery-mobile-bower/js/jquery.mobile-1.4.5.js"
                         ],
                             dest: "build/js/application-merge-library.js"
                         },
                         { src: [
-                            "bower_components/jquery-mobile-bower/css/jquery.mobile-1.4.2.css",
+                            "bower_components/jquery-mobile-bower/css/jquery.mobile-1.4.5.css",
                             "!build/**/app.css"
                         ], dest: "build/styles/application-merge-styles.css"}
                     ]
@@ -154,7 +154,7 @@ module.exports = function (grunt) {
                              * https://github.com/jobrapido/jquery-mobile-bower
                              */
                             "bower_components/jquery/jquery.js",
-                            "bower_components/jquery-mobile-bower/js/jquery.mobile-1.4.2.js"
+                            "bower_components/jquery-mobile-bower/js/jquery.mobile-1.4.5.js"
                         ],
                             dest: "dist/js/application-merge-library.js"
                         },
@@ -163,7 +163,7 @@ module.exports = function (grunt) {
                         ], dest: "dist/js/application-library.js"},
                         { src: [
                             "!dist/**/app.css",
-                            "bower_components/jquery-mobile-bower/css/jquery.mobile-1.4.2.css"
+                            "bower_components/jquery-mobile-bower/css/jquery.mobile-1.4.5.css"
                         ],
                             dest: "dist/styles/application-merge-styles.css"
                         },
