@@ -1,0 +1,63 @@
+{
+  "_args": [
+    [
+      "dojo-bootstrap@https://github.com/xsokev/Dojo-Bootstrap/archive/v3.0.1.tar.gz",
+      "/Users/lloy3317/Git/Development/JavaScript/mobile-webapps-js/responsive-bootstrap"
+    ]
+  ],
+  "_from": "https://github.com/xsokev/Dojo-Bootstrap/archive/v3.0.1.tar.gz",
+  "_id": "dojo-bootstrap@3.0.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/dojo-bootstrap",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "dojo-bootstrap",
+    "raw": "dojo-bootstrap@https://github.com/xsokev/Dojo-Bootstrap/archive/v3.0.1.tar.gz",
+    "rawSpec": "https://github.com/xsokev/Dojo-Bootstrap/archive/v3.0.1.tar.gz",
+    "scope": null,
+    "spec": "https://github.com/xsokev/Dojo-Bootstrap/archive/v3.0.1.tar.gz",
+    "type": "remote"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://github.com/xsokev/Dojo-Bootstrap/archive/v3.0.1.tar.gz",
+  "_shasum": "681bd70f700b61ab79e24ac407ee99bbbca11e28",
+  "_shrinkwrap": null,
+  "_spec": "dojo-bootstrap@https://github.com/xsokev/Dojo-Bootstrap/archive/v3.0.1.tar.gz",
+  "_where": "/Users/lloy3317/Git/Development/JavaScript/mobile-webapps-js/responsive-bootstrap",
+  "bugs": {
+    "url": "https://github.com/xsokev/Dojo-Bootstrap/issues"
+  },
+  "dependencies": {},
+  "description": "Implementation of Bootstrap using the Dojo Toolkit.",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-se-launch": "^0.1.0",
+    "intern": "^2.0.0"
+  },
+  "dojoBuild": "bootstrap.profile.js",
+  "homepage": "https://github.com/xsokev/Dojo-Bootstrap",
+  "keywords": [
+    "Bootstrap",
+    "Dojo",
+    "JavaScript"
+  ],
+  "licenses": [
+    {
+      "type": "Apache License",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "main": "main",
+  "name": "dojo-bootstrap",
+  "optionalDependencies": {},
+  "readme": "# Dojo-Bootstrap\n\nAn implementation of the excellent [Bootstrap](http://getbootstrap.com) framework using the [Dojo Toolkit](http://dojotoolkit.org). This project replaces the Bootstrap JavaScript components with AMD-compatible Dojo modules. Tested with Dojo 1.9.3 and Bootstrap 3.1.1.\n\n## Quick Start\n\n+ `git clone git://github.com/xsokev/Dojo-Bootstrap.git`\n+ Add [dojo sdk](https://github.com/dojo) (or a symbolic link to the dojo sdk) under the vendor folder as follows:\n```\n└── vendor\n    └── dojo\n        ├── dojo\n        └── util\n```\n+ Point your browser to `http://host/path/to/Dojo-bootstrap/tests/index.html`\n\n## Integration\n\nSee examples in test/test_*.html\n\n### In Brief\n```\n    <!DOCTYPE html>\n    <html>\n        <head>\n            <meta charset=\"utf-8\">\n            <title>Dojo-Bootstrap</title>\n            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n            <link rel=\"stylesheet\" href=\"path/to/bootstrap/styles.css\">\n        </head>\n    \n        <body>\n            <button type=\"button\" id=\"loading-button\" class=\"btn btn-primary\" data-loading-text=\"Loading...\">Load</button>\n        \n            <script>\n                var dojoConfig = {\n                    async: 1,\n                    packages: [\n                        { name: \"bootstrap\", location: \"path/to/Dojo-Bootstrap\" }\n                    ]\n                };\n            </script>\n        \n            <script type=\"text/javascript\" src=\"path/to/dojo/dojo/dojo.js\"></script>\n    \n            <script>\n                require([\"bootstrap/Button\", \"dojo/query\"], function (Button, query) {\n                    query(\"#loading-button\").on(\"click\", function(e){\n                        query(e.target).button('loading');\n                        setTimeout(function(){\n                            query(e.target).button('reset');\n                        }, 2000);\n                    });\n                });\n            </script>\n        </body>\n    </html>\n```\n## Tests\n\nCurrently this project is in the process of transitioning from using DOH to using [the Intern](http://theintern.io/) to run the test suites. As test suites are converted to use the Intern, the DOH suites will be phased out.\n\n### Intern Tests\n\nTo run the intern tests, you will need to first install the Intern by running the following at the command line:\n\n`npm install`\n\n**NOTE**: The Intern looks for Dojo to be installed under the `vendor` (see above).\n\n#### Running the Intern Unit Test Suites in a Browser\n\nTo run the Intern unit test suites in a browser:\n\n1. open your browser *and* the browser's console window\n2. load `http://host/path/to/Dojo-bootstrap/node_modules/intern/client.html?config=tests/intern`\n\nYou should see something like:\n\n![screen shot 2014-06-27 at 7 47 55 pm](https://cloud.githubusercontent.com/assets/662944/3419594/b8ed8aa4-fe6e-11e3-9f53-d2e94b378aad.png)\n\n#### Running the Intern Unit Test Suites via Grunt/Selenium\n\nUsing the Intern's test runnner against a local Selenium install offers many advantages including:\n\n* running your tests in multiple browsers from the command line\n* code coverage reporting\n* automate running your tests with Grunt\n* running functional test suites\n\nYou will need to download [Selenium Server](http://docs.seleniumhq.org/download/) and\n[chromedriver](https://code.google.com/p/chromedriver/downloads/list). See this issue for several suggestions on how to accomplish this:\n\nhttps://github.com/theintern/intern-tutorial/issues/5\n\nOnce you've downloaded selenium, the Grunt `selenium-launch` task is confgiured to look for the .jar file under `vendor/selenium`, so either create that folder and copy the file there or create a symbolic link from `vendor/selenium` to the folder in which your selenium .jar file was downloaded. The vendor folder should now look like this:\n\n```\n└── vendor\n    └── dojo\n        ├── dojo\n        └── util\n    └── selenium\n        └──selenium-server-standalone-2.42.2.jar\n```\n\nYou will also need to make sure the path to the chromedriver is in your system's PATH variable.\n\nFinally, you should double check the intern and Grunt configuration files to make sure that they match your environment. Make sure they reference the same version of Selenium that you installed and add/remove any browsers to match the ones that you have installed.\n\n**intern.js**\n```\n  capabilities: {\n    'selenium-version': '2.42.2'\n  },\n```\n....\n```\n  environments: [\n    { browserName: 'firefox' },\n    { browserName: 'safari' },\n    { browserName: 'chrome' }\n  ],\n```\n\n**Gruntfile.js**\n```\n    'selenium-launch': {\n      options: {\n        port: 4444,\n        jarDir: 'vendor/selenium/',\n        jar: 'selenium-server-standalone-2.42.2.jar'\n      }\n    }\n```\nOnce you've got everything configured, the easisest way to run your tests is via Grunt by entering the following at the command line:\n\n```\ngrunt test\n```\n\nYou should see something like the following:\n\n![screen shot 2014-06-29 at 7 58 21 am](https://cloud.githubusercontent.com/assets/662944/3423607/8c3f30de-ff9f-11e3-9cc5-8391c90845eb.png)\n\nYou can also run the tests without Grunt by starting Selenium and the Intern runner manually at the commaind line with:\n\n\n```\njava -jar vendor/selenium/selenium-server-standalone-2.42.2.jar -p 4444\n\n```\n\nThen in a seperate terminal window:\n\n```\n./node_modules/.bin/intern-runner config=tests/intern\n```\n\nThis can be useful if you only want to run specific suites, for example:\n\n```\n./node_modules/.bin/intern-runner config=tests/intern suites=tests/popover\n```\n\nSee the [Intern documentation](https://github.com/theintern/intern/wiki/Running-Intern) for the complete list of parameters that you can use when running the Intern.\n\n#### Writing Intern Unit Test Suites\n\nIf you would like to help convert the remaining DOH unit test suites to the Intern, please note that [we are trying to simultaneously update the test suites so that their test data and conditions match the Bootsrap v3 test suites](https://github.com/xsokev/Dojo-Bootstrap/issues/97). We would appreciate help with this effort.\n\nFor more on writing tests with the Intern, see [the guide on the Intern wiki](https://github.com/theintern/intern/wiki/Writing-Tests-with-Intern). The current unit test suites use the [object style syntax](https://github.com/theintern/intern/wiki/Writing-Tests-with-Intern#object). For a step by step tutorial on getting started with the Intern, see [the Intern tutorial](https://github.com/theintern/intern-tutorial).\n\n### DOH Tests\n\n**NOTE**: The DOH tests expect the Dojo util package to be installed along with Dojo under the `vendor` (see above).\n\nThe easiest way to run the DOH test suites is to link to the DOH test runner from `tests/index.html` clicking the \"Complete\" link. You can also open it directly in a browser with:\n\n`http://host/path/to/Dojo-bootstrap/vendor/dojo/util/doh/runner.html?test=../../../../tests/complete.js`\n\n## Useful resources\n\n+ [Dojo-Bootstrap Website with examples for all the modules](http://xsokev.github.io/Dojo-Bootstrap/)\n+ [Dojo Reference Guide (latest release version)](http://dojotoolkit.org/reference-guide/)\n+ [Dojo Reference Guide (Dojo trunk)](http://livedocs.dojotoolkit.org/)\n+ [Bootstrap](http://getbootstrap.com/)\n+ [The Intern](http://theintern.io/)\n+ [The Intern Wiki](https://github.com/theintern/intern/wiki)\n+ [Intern Grunt Example](https://github.com/theintern/intern-examples/tree/master/grunt-example)\n\n## License\n\nDojo Bootstrap is licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xsokev/Dojo-Bootstrap.git"
+  },
+  "version": "3.0.2"
+}

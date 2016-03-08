@@ -1,0 +1,28 @@
+
+// --------------------------------------------------------------------
+// Bootstrap source sass
+//
+// /node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss
+// @import "bootstrap-sprockets";
+//
+// We put the calcite-bootstrap css file under assets/css/calcite-bootstrap
+// and the fonts are under assets/fonts/bootstrap, so we need to fix
+// the font path. If you load bootstrap-sprockets you'll need to correct
+// the $icon-font-path
+// --------------------------------------------------------------------
+$icon-font-path: "../fonts/bootstrap/";
+@import "bootstrap";
+@import "bootstrap/theme";
+
+// --------------------------------------------------------------------
+// Calcite-bootstrap source sass
+// --------------------------------------------------------------------
+// calcite-bootstrap.scss
+// calcite-bootstrap-dark.scss
+// calcite-bootstrap-dark-open.scss
+// calcite-bootstrap-open.scss
+$font-path: "../fonts/calcite-bootstrap";
+@import "calcite-bootstrap";
+@import "calcite-bootstrap-dark";
+@import "calcite-bootstrap-dark-open";
+@import "calcite-bootstrap-open";

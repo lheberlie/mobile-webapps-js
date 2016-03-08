@@ -1,0 +1,80 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap/theme";
+
+// calcite-bootstrap.scss
+// calcite-bootstrap-dark.scss
+// calcite-bootstrap-dark-open.scss
+// calcite-bootstrap-open.scss
+@import "calcite-bootstrap";
+//foo
+@import "calcite-maps/calcite-maps.css";
+
+// --------------------------------------------------------------------
+// ArcGIS API for JavaScript 4.0 beta 1 stylesheet
+//
+// Copy the esri style sheet and paste into _esri.scss
+// find all occurrences of
+// url("../
+// and replace with
+// url($esri-css-url + "../
+//
+// find filter:\sprogid:\s, replace the space between progid: and
+// DXImageTransform
+//
+// Remove
+// --------------------------------------------------------------------
+$esri-css-url: "https://js.arcgis.com/4.0beta3/esri/css/";
+@import "esri";
+
+/* Move content down because we have a fixed navbar that is 50px */
+body {
+    padding-top: 50px;
+}
+
+/* Set the min and max height of the map, otherwise will expand to full screen */
+#mapViewDiv, #sceneViewDiv {
+    /*min-height: 100px;
+    max-height: 1500px;*/
+}
+
+/* Search widget styling to fit navbar */
+#searchDiv {
+    padding-right: 15px;
+}
+
+.esriSearch .esriContainer .esriInput {
+    width: 150px;
+}
+
+.tooltip-inner {
+    white-space: nowrap;
+}
+
+/* Search widget styling for smaller screens */
+@media (max-width: 767px) {
+    #searchDiv {
+        padding-right: 0;
+    }
+    #searchInput.esriInput {
+        width: calc(100%);
+    }
+    .esriSearch .esriExpandContainer {
+        width: calc(100% - 47px);
+    }
+    .esriSearch .esriInputContainer {
+        width: 100%;
+    }
+    .esriSearch .esriContainer .esriInput {
+        width: calc(100% - 30px) !important;
+    }
+    .esriSearch .esriMenu {
+        position: inherit !important;
+    }
+}
+
+@media (max-width: 850px) {
+    .esriSearch .esriContainer .esriInput {
+        width: 125px;
+    }
+}

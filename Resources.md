@@ -40,6 +40,7 @@ Smartphones and tablets are now outselling PCs, so it's the perfect time to thin
 ## Productivity for your workflows
 
 * [Node.js](http://nodejs.org)
+    * [How to Use npm as a Build Tool](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/)
 
 * JavaScript Task Runners
 	* [Gulp](http://gulpjs.com)
@@ -68,6 +69,12 @@ Smartphones and tablets are now outselling PCs, so it's the perfect time to thin
 Sass, Less and Stylus](http://patrickarlt.github.io/sass-less-stylus-slides/#/) - presented by [Patrick Arlt](https://twitter.com/patrickarlt)
 	* [Write Responsive, Cross-Browser CSS Faster with SASS and Compass](http://video.esri.com/iframe/3367/000000/width/960/0/000000) and [Slides](https://s3.amazonaws.com/webapps.esri.com/esri-proceedings/devsummit14/papers/dev-131.pdf) - presented by [Patrick Arlt](https://twitter.com/patrickarlt)
 * [ JSHint (Esri jsapi resources)](https://github.com/Esri/jsapi-resources)
+
+* Static Site Generators
+* [Acetate](http://acetate.io/)
+* [Acetate Sample](https://github.com/patrickarlt/acetate-sample)
+* [Static Site Generators](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/) - Smashing Magazine
+
 
 ## Debugging and Testing
 
@@ -123,9 +130,10 @@ Sass, Less and Stylus](http://patrickarlt.github.io/sass-less-stylus-slides/#/) 
 
 * [SmashingMagazine: The Mobile Book](https://shop.smashingmagazine.com/the-mobile-book-digital-edition.html)
 * [Esri jsapi resources](https://github.com/Esri/jsapi-resources)
-	* JSHint
-	* OAuth
-	* TypeScript
+   * [Bower](https://github.com/Esri/jsapi-resources/tree/master/bower) 
+	* [JSHint](https://github.com/Esri/jsapi-resources/tree/master/jshint)
+	* [OAuth](https://github.com/Esri/jsapi-resources/tree/master/oauth)
+	* [TypeScript](https://github.com/Esri/jsapi-resources/tree/master/typescript)
 * [Esri resource proxy](https://github.com/esri/resource-proxy)
 * [Hello Compass Sass Grunt scss (Shows features of the compass framework with Sass)](https://github.com/lheberlie/hello-compass-sass-grunt-scss)
 * [Hello Sass Grunt scss (Shows some of the powerful features of Sass using scss)](https://github.com/lheberlie/hello-sass-grunt-scss)
